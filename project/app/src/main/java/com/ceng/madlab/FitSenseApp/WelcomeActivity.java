@@ -13,12 +13,12 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome); // XML dosya ismin activity_welcome olmalı
+        setContentView(R.layout.activity_welcome); 
 
         btnLogin = findViewById(R.id.btnLogin);
         btnSignUp = findViewById(R.id.btnSignUp);
 
-        // Login Butonu -> Login Sayfasına
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        // Sign Up Butonu -> Sign Up Sayfasına
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

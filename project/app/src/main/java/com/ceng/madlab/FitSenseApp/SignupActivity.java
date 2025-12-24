@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
 
-    // Ekrandaki kutucukları ve butonu tanımlıyoruz
+
     private EditText etName, etSurname, etMail, etPassword;
     private Button btnSignUp;
 

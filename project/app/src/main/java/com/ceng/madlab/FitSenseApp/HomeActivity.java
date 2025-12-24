@@ -22,13 +22,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home); // XML dosya ismin activity_home olmalı
+        setContentView(R.layout.activity_home);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         btnMenu = findViewById(R.id.btnMenu);
 
-        // Menü butonuna tıklayınca aç
+
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,18 +36,18 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Menü elemanlarına tıklama
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
                 if (id == R.id.nav_home) {
-                    // Zaten buradayız
+
                 } else if (id == R.id.nav_history) {
                     Toast.makeText(HomeActivity.this, "History Tıklandı", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.nav_logout) {
-                    // Çıkış yapıp başa dön
+
                     finish();
                 }
 
