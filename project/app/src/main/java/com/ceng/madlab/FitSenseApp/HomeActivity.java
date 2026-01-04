@@ -1,59 +1,72 @@
 package com.ceng.madlab.FitSenseApp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.android.material.navigation.NavigationView;
+import android.widget.Button;
+import android.widget.ImageView; // ImageView eklendi
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private ImageView btnMenu;
+    private Button btnEnterMeasurement;
+    private ImageView btnHistory; // Yeni butonumuz
+    private ProgressBar progressBar;
+    private TextView tvFatRate, tvFatStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        btnMenu = findViewById(R.id.btnMenu);
+        initViews();
+        updateDashboard();
 
-
-        btnMenu.setOnClickListener(new View.OnClickListener() {
+        // Measurement Butonu
+        btnEnterMeasurement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                Intent intent = new Intent(HomeActivity.this, MeasurementActivity.class);
+                startActivity(intent);
             }
         });
 
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        // YENİ: History Butonu
+        btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-
-                if (id == R.id.nav_home) {
-
-                } else if (id == R.id.nav_history) {
-                    Toast.makeText(HomeActivity.this, "History Tıklandı", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_logout) {
-
-                    finish();
-                }
-
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateDashboard();
+    }
+
+    private void initViews() {
+        btnEnterMeasurement = findViewById(R.id.btnEnterMeasurement);
+
+        // Yeni butonu bağlıyoruz
+        btnHistory = findViewById(R.id.btnHistory);
+
+        progressBar = findViewById(R.id.progressBar);
+        tvFatRate = findViewById(R.id.tvFatRate);
+        tvFatStatus = findViewById(R.id.tvFatStatus);
+    }
+
+    private void updateDashboard() {
+        double currentFatRate = 17.3;
+        String currentStatus = "Fit";
+
+        if (tvFatRate != null) tvFatRate.setText(currentFatRate + "%");
+        if (tvFatStatus != null) tvFatStatus.setText(currentStatus);
+        if (progressBar != null) progressBar.setProgress((int) currentFatRate);
     }
 }

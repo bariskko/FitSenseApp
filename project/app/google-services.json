@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "496406992000",
+    "project_id": "fitsense-97ae8",
+    "storage_bucket": "fitsense-97ae8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496406992000:android:9503f235ecf0d5dee58265",
+        "android_client_info": {
+          "package_name": "com.ceng.madlab.FitSenseApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeUWn8ItcAX9VAroyU5S2tnGXOwC8oehM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
