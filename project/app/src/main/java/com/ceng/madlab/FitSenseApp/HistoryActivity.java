@@ -21,14 +21,14 @@ import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView; // Listeyi tutan yapı
+    private RecyclerView recyclerView;
     private HistoryAdapter adapter;
     private List<Measurement> measurementList;
 
     private Button btnSaveResult;
     private Button btnNewMeasurement;
 
-    // Firebase
+
     private FirebaseFirestore db;
     private String userID;
 
@@ -37,32 +37,28 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        // Firebase Başlat
+
         db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
             userID = user.getUid();
         } else {
-            // Kullanıcı yoksa Login'e at (Güvenlik önlemi)
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
 
         initViews();
-        setupRecyclerView(); // Listeyi hazırla
-        loadDataFromFirebase(); // Verileri indir
+        setupRecyclerView();
+        loadDataFromFirebase();
         setupListeners();
     }
 
     private void initViews() {
-        // Senin XML ID'lerin:
+
         btnSaveResult = findViewById(R.id.btnGenerateReport);
         btnNewMeasurement = findViewById(R.id.btnShareReport);
-
-        // activity_history.xml içinde listeyi gösterecek RecyclerView olmalı
-        // ID'sinin recyclerViewHistory olduğunu varsayıyorum
         recyclerView = findViewById(R.id.recyclerViewHistory);
     }
 
@@ -70,17 +66,17 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         measurementList = new ArrayList<>();
-        // Adaptörü veriler gelince bağlayacağız
+
     }
 
     private void loadDataFromFirebase() {
         db.collection("users").document(userID).collection("measurements")
-                .orderBy("date", Query.Direction.DESCENDING) // En yeni en üstte
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     measurementList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
-                        // Gelen veriyi Measurement sınıfına çevir
+
                         Measurement m = new Measurement(
                                 doc.getId(),
                                 doc.getDouble("fatRate"),
@@ -91,7 +87,7 @@ public class HistoryActivity extends AppCompatActivity {
                         measurementList.add(m);
                     }
 
-                    // Adaptörü oluştur ve listeye bağla
+
                     adapter = new HistoryAdapter(measurementList, userID);
                     recyclerView.setAdapter(adapter);
                 })
@@ -101,8 +97,6 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        // "Save Result" -> Aslında Save işlemi ResultActivity'de yapıldı.
-        // Belki burada "Rapor Al" gibi bir işlem olabilir.
         btnSaveResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +104,7 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        // "New Measurement" -> Ölçüm sayfasına git
+
         btnNewMeasurement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class MeasurementActivity extends AppCompatActivity {
 
-    // Görsel bileşenler
+
     private EditText etHeight, etWeight, etNeck, etWaist, etHip;
     private TextView tvHipLabel;
     private RadioGroup radioGroupGender;
@@ -29,14 +29,9 @@ public class MeasurementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measurement);
-
-        // ÖNCE TANIMLAMALAR YAPILMALI
         initViews();
-
-        // SONRA DİNLEYİCİLER AYARLANMALI
         setupListeners();
 
-        // Başlangıç durumu: Erkek seçili, Kalça gizli, Renkler ayarlı
         if (rbMale.isChecked()) {
             updateHipVisibility(R.id.rbMale);
             updateGenderButtonColors(true);
@@ -60,11 +55,10 @@ public class MeasurementActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        // 1. Geri Butonu
         btnBack.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // Ana Sayfaya yönlendir
                 Intent intent = new Intent(MeasurementActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -72,7 +66,6 @@ public class MeasurementActivity extends AppCompatActivity {
             }
         });
 
-        // 2. Cinsiyet Değişimi
         radioGroupGender.setOnCheckedChangeListener((group, checkedId) -> {
             updateHipVisibility(checkedId);
             if (checkedId == R.id.rbMale) {
@@ -82,12 +75,10 @@ public class MeasurementActivity extends AppCompatActivity {
             }
         });
 
-        // 3. Hesapla Butonu
         btnCalculate.setOnClickListener(v -> calculateAndProceed());
     }
 
     private void updateGenderButtonColors(boolean isMaleSelected) {
-        // Renkleri al
         int selectedColor = ContextCompat.getColor(this, R.color.primary_blue);
         int unselectedColor = Color.WHITE;
         int selectedTextColor = Color.WHITE;

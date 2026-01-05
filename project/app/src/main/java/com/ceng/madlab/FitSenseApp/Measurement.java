@@ -10,7 +10,7 @@ public class Measurement {
     private Timestamp date;
 
     public Measurement() {
-        // Firebase için boş yapıcı metod zorunludur
+
     }
 
     public Measurement(String id, double fatRate, double bmi, String status, Timestamp date) {

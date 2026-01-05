@@ -26,11 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mAuth = FirebaseAuth.getInstance();
-
-        // --- OTOMATİK GİRİŞ KONTROLÜ ---
-        // Kullanıcı daha önce girdiyse direkt Home'a at
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
@@ -56,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // --- FIREBASE GİRİŞ İŞLEMİ ---
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
